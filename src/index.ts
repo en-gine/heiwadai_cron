@@ -4,7 +4,8 @@ import { tryIssueCoupon } from "./tryIssueCoupon";
 import { env } from "./env";
 
 console.log("NodeJS Version: " + process.version);
-console.log("TimeZone: " + process.version);
+console.log("TimeZone: " + process.env.TZ);
+console.log("Now: " + new Date().toLocaleString());
 
 const RegisterCron = (cronTime: string | Date, onTick: CronCommand) => {
   return new CronJob(cronTime, onTick, null, false, env.TZ);
