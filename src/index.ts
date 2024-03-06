@@ -3,6 +3,7 @@ import { tryBackupDB } from "./tryBackUpDB";
 import { tryIssueCoupon } from "./tryIssueCoupon";
 import { env } from "./env";
 import express from "express";
+import { sendMail } from "./utils/sendMail";
 
 const RegisterCron = (cronTime: string | Date, onTick: CronCommand) => {
   return new CronJob(cronTime, onTick, null, false, env.TZ);
@@ -33,8 +34,13 @@ app.listen(env.PORT, () => {
   console.log("TimeZone: " + process.env.TZ);
   console.log("現在時刻: " + new Date().toLocaleString());
   console.log(`ポート${env.PORT}番で起動しました。`);
-
   BackupJob.start();
-  IssueCouponJob.start();
   console.log("Backup cron scheduled...");
+  IssueCouponJob.start();
+  console.log("Issue Coupon cron scheduled...");
+
+  sendMail({
+    title: "平和台Cronサーバーが起動しました",
+    content: "平和台Cronサーバーが起動しました",
+  });
 });

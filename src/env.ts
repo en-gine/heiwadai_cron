@@ -1,5 +1,9 @@
 import { envsafe, str, bool, num } from "envsafe";
+import path from "path";
 
+require("dotenv").config({
+  path: path.resolve(__dirname, "../.env"),
+});
 export const env = envsafe({
   PORT: num({
     desc: "The port the server should listen on.",
