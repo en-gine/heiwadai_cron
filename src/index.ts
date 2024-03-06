@@ -26,21 +26,24 @@ const IssueCouponJob = RegisterCron(
 ///// JOBの実行 /////
 const app: express.Express = express();
 app.get("/", (req: express.Request, res: express.Response) => {
+  console.log(req);
   res.send("OK!");
 });
 
-app.listen(env.PORT, () => {
-  console.log("NodeJS Version: " + process.version);
-  console.log("TimeZone: " + process.env.TZ);
-  console.log("現在時刻: " + new Date().toLocaleString());
-  console.log(`ポート${env.PORT}番で起動しました。`);
-  BackupJob.start();
-  console.log("Backup cron scheduled...");
-  IssueCouponJob.start();
-  console.log("Issue Coupon cron scheduled...");
+app.listen(env.PORT, "0.0.0.0", () => {});
 
-  sendMail({
-    title: "平和台Cronサーバーが起動しました",
-    content: "平和台Cronサーバーが起動しました",
-  });
+console.log("Cron server started...");
+console.log("NodeJS Version: " + process.version);
+console.log("TimeZone: " + process.env.TZ);
+console.log("現在時刻: " + new Date().toLocaleString());
+console.log(`ポート${env.PORT}番で起動しました。`);
+BackupJob.start();
+console.log("Backup cron scheduled...");
+IssueCouponJob.start();
+console.log("Issue Coupon cron scheduled...");
+
+sendMail({
+  title: "平和台Cronサーバーが起動しました",
+  content: "平和台Cronサーバーが起動しました",
 });
+console.log("mail sent...");
