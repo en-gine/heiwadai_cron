@@ -2,10 +2,7 @@ import { CronCommand, CronJob } from "cron";
 import { tryBackupDB } from "./tryBackUpDB";
 import { tryIssueCoupon } from "./tryIssueCoupon";
 import { env } from "./env";
-
-console.log("NodeJS Version: " + process.version);
-console.log("TimeZone: " + process.env.TZ);
-console.log("Now: " + new Date().toLocaleString());
+import express from "express";
 
 const RegisterCron = (cronTime: string | Date, onTick: CronCommand) => {
   return new CronJob(cronTime, onTick, null, false, env.TZ);
@@ -26,6 +23,18 @@ const IssueCouponJob = RegisterCron(
   }
 );
 ///// JOBの実行 /////
-BackupJob.start();
-IssueCouponJob.start();
-console.log("Backup cron scheduled...");
+const app: express.Express = express();
+app.get("/", (req: express.Request, res: express.Response) => {
+  res.send("OK!");
+});
+
+app.listen(env.PORT, () => {
+  console.log("NodeJS Version: " + process.version);
+  console.log("TimeZone: " + process.env.TZ);
+  console.log("現在時刻: " + new Date().toLocaleString());
+  console.log(`ポート${env.PORT}番で起動しました。`);
+
+  BackupJob.start();
+  IssueCouponJob.start();
+  console.log("Backup cron scheduled...");
+});

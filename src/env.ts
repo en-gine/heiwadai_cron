@@ -1,6 +1,10 @@
-import { envsafe, str, bool } from "envsafe";
+import { envsafe, str, bool, num } from "envsafe";
 
 export const env = envsafe({
+  PORT: num({
+    desc: "The port the server should listen on.",
+    default: 3000,
+  }),
   AWS_ACCESS_KEY_ID: str(),
   AWS_SECRET_ACCESS_KEY: str(),
   AWS_S3_BUCKET: str(),
@@ -45,6 +49,36 @@ export const env = envsafe({
   }),
   CRON_ACCESS_ENDPOINT: str({
     desc: "The token to access the cron job",
+    default: "",
+    allowEmpty: false,
+  }),
+  ERR_MAIL_TO: str({
+    desc: "The mail to",
+    default: "",
+    allowEmpty: false,
+  }),
+  MAIL_HOST: str({
+    desc: "The mail server host",
+    default: "",
+    allowEmpty: false,
+  }),
+  MAIL_PORT: str({
+    desc: "The mail server port",
+    default: "",
+    allowEmpty: false,
+  }),
+  MAIL_FROM: str({
+    desc: "The mail from",
+    default: "",
+    allowEmpty: false,
+  }),
+  MAIL_USER: str({
+    desc: "The mail user",
+    default: "",
+    allowEmpty: false,
+  }),
+  MAIL_PASS: str({
+    desc: "The mail password",
     default: "",
     allowEmpty: false,
   }),
