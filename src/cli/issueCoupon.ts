@@ -1,8 +1,8 @@
 import { tryIssueCoupon } from "../tryIssueCoupon";
 
-const IssueCouponCli = async () => {
+async function IssueCouponCli() {
   console.log("CLI run. Issuing birthday coupon...");
   await tryIssueCoupon();
-};
+}
 
-export default IssueCouponCli;
+export default IssueCouponCli();

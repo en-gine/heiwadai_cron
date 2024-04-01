@@ -8,8 +8,8 @@ const postIssue = async () => {
     {},
     {
       headers: {
-        Authorization: env.CRON_ACCESS_KEY,
-        "X-Cron-Key": env.CRON_ACCESS_SECRET,
+        Authorization: env.CRON_ACCESS_SECRET,
+        "X-Cron-Key": env.CRON_ACCESS_KEY,
         "Content-Type": "application/json",
       },
     }
