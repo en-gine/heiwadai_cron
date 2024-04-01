@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "node dist/index.js",
-    "build": "tsc"
+    "build": "tsc",
+    "issueCoupon": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} ./src/cli/issueCoupon.ts"
   },
   "license": "MIT",
   "devDependencies": {
@@ -23,7 +24,8 @@
     "dotenv": "^16.4.5",
     "envsafe": "^2.0.3",
     "express": "^4.18.3",
-    "filesize": "^10.1.0"
+    "filesize": "^10.1.0",
+    "ts-node": "^10.9.2"
   },
   "keywords": []
 }
