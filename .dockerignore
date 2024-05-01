@@ -1,0 +1,9 @@
+# flyctl launch added from .gitignore
+**/dist
+**/node_modules
+
+# Webstorm
+**/.idea
+**/.env
+**/.env.prod
+fly.toml

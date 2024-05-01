@@ -20,10 +20,14 @@ WORKDIR /root
 
 COPY --from=build /root/node_modules ./node_modules
 COPY --from=build /root/dist ./dist
-
+ARG PG_VERSION
+RUN echo "PG_VERSION variable: $PG_VERSION"
 RUN apk add --update --no-cache postgresql${PG_VERSION}-client --repository=https://dl-cdn.alpinelinux.org/alpine/edge/main && \
     apk add --update --no-cache nodejs npm
 
-CMD pg_isready --dbname=$BACKUP_DATABASE_URL && \
+RUN --mount=type=secret,id=backup_database_url,dst=/backup_database_url \
+    BACKUP_DATABASE_URL="$(cat /backup_database_url)" && \
+    pg_isready --dbname="$BACKUP_DATABASE_URL" && \
     pg_dump --version && \
     node dist/index.js
+CMD ["node", "dist/index.js"]
