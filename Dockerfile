@@ -14,12 +14,12 @@ RUN npm install && \
     npm run build && \
     npm prune --production
 
-FROM alpine:3.18
+# FROM alpine:3.18 # メンテナンスしにくいので一旦多段ビルドは取りやめ
 
-WORKDIR /root
+# WORKDIR /root
 
-COPY --from=build /root/node_modules ./node_modules
-COPY --from=build /root/dist ./dist
+# COPY --from=build /root/node_modules ./node_modules
+# COPY --from=build /root/dist ./dist
 
 RUN apk add --update --no-cache postgresql${PG_VERSION}-client --repository=https://dl-cdn.alpinelinux.org/alpine/edge/main && \
     apk add --update --no-cache nodejs npm
